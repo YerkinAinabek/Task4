@@ -54,18 +54,20 @@ public class NotificatorWSApplication implements INotificatorWSApplication {
     // Добавляем пользователей и отчёты в БД
     @Override
     public void addNotification(List<Notificator> listTrackedData) {
-        try {
-            for (Notificator notificator : listTrackedData)
-            dao.add(notificator);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            for (Notificator notificator : listTrackedData) {
+                try {
+                    dao.add(notificator);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
     }
 
     // отправляем на роутер пользователей, у которых нет отчётов за сегодня
     @WebMethod
     @Override
-    public List<Integer> sendToRouter(List <Integer> listCompared) {
+    public List<Integer> sendToRouter(List<Integer> listCompared) {
         return listCompared;
     }
 }
