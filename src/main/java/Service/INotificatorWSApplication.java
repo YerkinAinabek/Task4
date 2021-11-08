@@ -13,7 +13,7 @@ public interface INotificatorWSApplication {
 
     // запрашиваем у бухгалтера id, у которых есть отчёт на сегодня (
     @WebMethod (operationName = "getTrackedData")
-    List<Notificator> getTrackedData();
+    List<Integer> getTrackedData();
 
     // запрашиваем у роутера id пользователей, у которых есть отчёт на сегодня
     @WebMethod (operationName = "getTrackedId")
@@ -21,8 +21,6 @@ public interface INotificatorWSApplication {
 
     List<Integer> comparingData();
 
-    void addNotification(List<Notificator> listTrackedData);
+    void addNotification(List<Integer> listCompared);
 
-    @WebMethod (operationName = "sendToRouter")
-    List<Integer> sendToRouter(List<Integer> listCompared);
 }

@@ -12,7 +12,7 @@ public class Notificator {
     public int id;
 
     @XmlElement
-    protected LocalDate day;
+    public LocalDate day;
 
     public Notificator(){}
 
