@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Notificator {
 
     @XmlElement
-    protected int id;
+    public int id;
 
     @XmlElement
     protected LocalDate day;

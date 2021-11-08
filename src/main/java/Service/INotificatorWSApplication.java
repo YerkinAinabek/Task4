@@ -1,7 +1,6 @@
 package Service;
 
 import Model.Notificator;
-
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.util.List;
@@ -9,19 +8,21 @@ import java.util.List;
 @WebService
 public interface INotificatorWSApplication {
 
-    @WebMethod
+    @WebMethod (operationName = "getTeamData")
     List<Integer> getTeamData();
 
     // запрашиваем у бухгалтера id, у которых есть отчёт на сегодня (
-    @WebMethod
-    List<Integer> getTrackData();
+    @WebMethod (operationName = "getTrackedData")
+    List<Notificator> getTrackedData();
 
-    //@WebMethod
+    // запрашиваем у роутера id пользователей, у которых есть отчёт на сегодня
+    @WebMethod (operationName = "getTrackedId")
+    List<Integer> getTrackedId();
+
     List<Integer> comparingData();
 
+    void addNotification(List<Notificator> listTrackedData);
 
-    void addNotification(Notificator notificator);
-
-    @WebMethod
-    List<Notificator> sendToRouter();
+    @WebMethod (operationName = "sendToRouter")
+    List<Integer> sendToRouter(List<Integer> listCompared);
 }
