@@ -18,15 +18,15 @@ public class NotificatorWSApplication implements INotificatorWSApplication {
     public NotificatorWSApplication() {
     }
 
-    // запрашиваем у сервиса роутера активные айди из списка
+    // запрашиваем у сервиса роутера активные айди из списка сервиса-команды
     @WebMethod(operationName = "getTeamData")
     @Override
     public List<Integer> getTeamData() {
-
         // дай список айди
         return listTeam;
     }
 
+    //запрашиваем у сервиса роутера id разрабов, у которых есть отчёт
     @WebMethod(operationName = "getTrackedData")
     @Override
     public List<Integer> getTrackedData() {
