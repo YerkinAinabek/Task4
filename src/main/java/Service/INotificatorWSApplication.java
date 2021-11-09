@@ -9,21 +9,10 @@ import java.util.List;
 @WebService
 public interface INotificatorWSApplication {
 
-    @WebMethod(operationName = "getTeamData")
-    List<Integer> getTeamData();
-
-    // запрашиваем у бухгалтера id, у которых есть отчёт на сегодня (
-    @WebMethod(operationName = "getTrackedData")
-    List<Integer> getTrackedData();
-
-    // запрашиваем у роутера id пользователей, у которых есть отчёт на сегодня
-    @WebMethod(operationName = "getTrackedId")
-    List<Integer> getTrackedId();
-
     @WebMethod(operationName = "comparingData")
-    List<Integer> comparingData();
+    List<Integer> comparingData(List<Integer> listTeam, List<Integer> listTracked);
 
-    void addNotification(List<Integer> listCompared);
+    void addNotification(List<Integer> listCompared, List<Integer> listTracked);
 
     // Если не было трекинга 3 дня подряд, отправить лектору в тг оповещение
     @WebMethod(operationName = "getIdsForLector")
