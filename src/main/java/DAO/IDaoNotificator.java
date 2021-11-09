@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface IDaoNotificator extends Dao<Notificator, String> {
 
-
 }

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
     public class DataSourceFactory {
-        private static final String RESOURCE_PATH = "C:\\Projects\\ServiceNotificator\\src\\main\\postgre.properties";
+        private static final String RESOURCE_PATH = "src/main/postgre.properties";
         private static Connection connection = null;
 
         private DataSourceFactory() {

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface Dao<T, ID> {
 
-    void add (int a, LocalDate b) throws SQLException;
-    List<Notificator> getListOfNotificatorsById(int id) throws SQLException;
-
+    void add (int a, LocalDate b);
+    List<Notificator> getListOfNotificatorsById(int id);
+    List<Integer> getIdsWithThreeLostTracks();
 }

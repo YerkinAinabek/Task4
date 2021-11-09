@@ -1,25 +1,25 @@
 package Service;
 
 import DAO.DaoNotificator;
-import Model.Notificator;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-@WebService (endpointInterface = "Service.INotificatorWSApplication")
+@WebService(endpointInterface = "Service.INotificatorWSApplication")
 public class NotificatorWSApplication implements INotificatorWSApplication {
     public DaoNotificator dao;
     public List<Integer> listTeam = null;
     public List<Integer> listTracked = null;
-    public List<Integer> listCompared = null;
     public List<Integer> listIdDay = null;
 
-    public NotificatorWSApplication(){}
+    public NotificatorWSApplication() {
+    }
 
     // запрашиваем у сервиса роутера активные айди из списка
-    @WebMethod (operationName = "getTeamData")
+    @WebMethod(operationName = "getTeamData")
     @Override
     public List<Integer> getTeamData() {
 
@@ -27,7 +27,7 @@ public class NotificatorWSApplication implements INotificatorWSApplication {
         return listTeam;
     }
 
-    @WebMethod (operationName = "getTrackedData")
+    @WebMethod(operationName = "getTrackedData")
     @Override
     public List<Integer> getTrackedData() {
         // дай объект с id и датой
@@ -35,7 +35,7 @@ public class NotificatorWSApplication implements INotificatorWSApplication {
     }
 
     // запрашиваем у роутера id пользователей, у которых есть отчёт на сегодня
-    @WebMethod (operationName = "getTrackedId")
+    @WebMethod(operationName = "getTrackedId")
     @Override
     public List<Integer> getTrackedId() {
         // дай список айди
@@ -44,23 +44,28 @@ public class NotificatorWSApplication implements INotificatorWSApplication {
 
 
     // Сравниваем пользователей из списка команды со списком бухгалтера, возвращаем тех, у которых нет отчётов
+    @WebMethod(operationName = "comparingData")
     @Override
     public List<Integer> comparingData() {
         listTeam.removeAll(listTracked);
-        listCompared = listTeam;
-    return listCompared;
+        return listTeam;
     }
 
     // Добавляем id пользователей, не оставлявших отчёты в БД
     @Override
-    public void addNotification(List<Integer> listCompared) {
+    public void addNotification(List<Integer> listTeam) {
         comparingData();
-            for (Integer temp : listCompared) {
-                try {
-                    dao.add(temp, LocalDate.now());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+        for (Integer temp : listTeam) {
+            dao.add(temp, LocalDate.now());
+
+        }
     }
+
+    // Если не было трекинга 3 дня подряд, отправить лектору в тг оповещение
+    @WebMethod(operationName = "getIdsForLector")
+    @Override
+    public List<Integer> getIdsForLector() {
+        return dao.getIdsWithThreeLostTracks();
+    }
+
 }
